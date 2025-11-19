@@ -85,4 +85,5 @@ router.post('/:id/toggle', function (req, res, next) {
     res.status(500).send('Error toggling todo');
   }
 });
+
 module.exports = router;
