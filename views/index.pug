@@ -10,7 +10,14 @@ block content
       if val.completed > 0
         span Completed
       else
-        pan Not Completed
+        span Not Completed
+        form(method='POST', action='/' + val.id + '/toggle')
+          button(type='submit') Toggle
+
+        form(method='POST', action='/' + val.id + '/update')
+          input(type='text', name='task', value=val.task, required)
+          button(type='submit') Edit
+          
       form(method='POST' action='/delete')
         input(type='hidden', name='id', value=val.id)
         button(type='submit') Delete
