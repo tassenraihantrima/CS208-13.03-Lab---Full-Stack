@@ -6,23 +6,20 @@ block content
 
   ol.task-list
     each val in todos
-      li.task-item(class=val.completed > 0 ? 'is-complete' : '')
+      li(class=['task-item', val.completed > 0 ? 'is-complete' : null])
         span= val.task + ' - '
         if val.completed > 0
           span Completed
         else
           span Not Completed
 
-        // Toggle
         form.inline(method='POST', action='/' + val.id + '/toggle')
           button.btn(type='submit') Toggle
 
-        // Edit
         form.inline(method='POST', action='/' + val.id + '/update')
           input.task-input(type='text', name='task', value=val.task, required)
           button.btn.btn-primary(type='submit') Edit
 
-        // Delete
         form.inline(method='POST', action='/delete')
           input(type='hidden', name='id', value=val.id)
           button.btn.btn-danger(type='submit') Delete
