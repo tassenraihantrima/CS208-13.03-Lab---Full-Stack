@@ -6,7 +6,6 @@ const { dbMiddleware} = require('./bin/db');
 const indexRouter = require('./routes/index');
 //add more handlers here
 const createError = require('http-errors');
-const tasksRouter = require('./routes/tasks');  
 
 const app = express();
 
@@ -21,7 +20,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(dbMiddleware);
 app.use('/', indexRouter);
 //add more routes here
-app.use('/tasks', tasksRouter);  
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
