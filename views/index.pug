@@ -3,28 +3,33 @@ extends layout
 block content
   h1= title
   p Welcome to #{title}
-  ol
-  each val in todos
-    li
-      span= val.task + ' - '
-      if val.completed > 0
-        span Completed
-      else
-        span Not Completed
-        form(method='POST', action='/' + val.id + '/toggle')
-          button(type='submit') Toggle
 
-        form(method='POST', action='/' + val.id + '/update')
-          input(type='text', name='task', value=val.task, required)
-          button(type='submit') Edit
-          
-      form(method='POST' action='/delete')
-        input(type='hidden', name='id', value=val.id)
-        button(type='submit') Delete
+  ol.task-list
+    each val in todos
+      li.task-item(class=val.completed > 0 ? 'is-complete' : '')
+        span= val.task + ' - '
+        if val.completed > 0
+          span Completed
+        else
+          span Not Completed
+
+        // Toggle
+        form.inline(method='POST', action='/' + val.id + '/toggle')
+          button.btn(type='submit') Toggle
+
+        // Edit
+        form.inline(method='POST', action='/' + val.id + '/update')
+          input.task-input(type='text', name='task', value=val.task, required)
+          button.btn.btn-primary(type='submit') Edit
+
+        // Delete
+        form.inline(method='POST', action='/delete')
+          input(type='hidden', name='id', value=val.id)
+          button.btn.btn-danger(type='submit') Delete
 
   hr
   h2 Add a new task
-  form(method='POST' action='/create')
+  form.add-form(method='POST', action='/create')
     label(for='task') Task:
-    input(type='text', name='task', id='task', required)
-    button(type='submit') Create Task
+    input#task(type='text', name='task', required, minlength='1')
+    button.btn(type='submit') Create Task
