@@ -70,14 +70,10 @@ router.post('/:id/update', function (req, res, next) {
 });
 
 router.post('/:id/toggle', function (req, res, next) {
-  const id = req.params.id;
+  var id = req.params.id;
   try {
-    const sql = `
-      UPDATE todos
-      SET completed = CASE WHEN completed = 1 THEN 0 ELSE 1 END
-      WHERE id = ?;
-    `;
-    req.db.query(sql, [id], (err, results) => {
+    var sql = 'UPDATE todos SET completed = CASE WHEN completed = 1 THEN 0 ELSE 1 END WHERE id = ?;';
+    req.db.query(sql, [id], function (err, results) {
       if (err) {
         console.error('Error toggling todo:', err);
         return res.status(500).send('Error toggling todo');
@@ -89,5 +85,4 @@ router.post('/:id/toggle', function (req, res, next) {
     res.status(500).send('Error toggling todo');
   }
 });
-
 module.exports = router;
